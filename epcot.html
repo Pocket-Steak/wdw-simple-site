@@ -4,18 +4,34 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EPCOT — Trip Planner</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Page-local spacing + placeholders (kept minimal so it won't clash with style.css) -->
+
+  <!-- Minimal page-local styles for the image grid + video split -->
   <style>
+    /* spacing stacks */
     .stack-sm { display:flex; flex-direction:column; gap:.5rem; }
-    .stack { display:flex; flex-direction:column; gap:1rem; }
+    .stack    { display:flex; flex-direction:column; gap:1rem; }
     .stack-lg { display:flex; flex-direction:column; gap:1.5rem; }
-    .section { padding:2rem 0; }
-    .hero p { margin-top:.5rem; max-width:72ch; }
-    .media-grid {
+    .section  { padding:2rem 0; }
+    .hero p   { margin-top:.5rem; max-width:72ch; }
+
+    /* image grid (2–5 images) + video split */
+    .media-split{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);
       gap:1.25rem;
-      margin:1rem 0 1.25rem;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .media-split{ grid-template-columns:1fr; }
+    }
+    .thumb-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:.75rem;
+    }
+    .thumb-grid img{
+      width:100%; height:100%; object-fit:cover; border-radius:12px; display:block;
+      aspect-ratio:16/9;
     }
     .img-slot{
       aspect-ratio:16/9;
@@ -26,6 +42,27 @@
       background:rgba(10,12,16,.35);
       padding:1rem; text-align:center;
     }
+
+    .vid-16x9{
+      aspect-ratio:16/9;
+      border-radius:12px;
+      overflow:hidden;
+      background:rgba(10,12,16,.35);
+    }
+    .vid-16x9 iframe{
+      width:100%; height:100%; border:0; display:block;
+    }
+    .video-placeholder{
+      width:100%; height:100%;
+      border:1.5px dashed rgba(120,130,150,.6);
+      color:rgba(160,175,195,.9);
+      display:flex; align-items:center; justify-content:center;
+      text-align:center; padding:1rem;
+      border-radius:12px;
+      background:transparent;
+    }
+
+    /* details + captions */
     .facts { margin:.25rem 0 0; padding-left:1.25rem; line-height:1.65; }
     .facts li { margin:.15rem 0; }
     .badge { margin-left:.75rem; }
@@ -53,25 +90,46 @@
         <h1>EPCOT</h1>
         <span class="badge">Comfort-first day</span>
       </div>
-      <p>We’ll review attractions Mom & Dad will love, then discuss a few maybes. Each ride has <strong>two photo slots</strong> below—add your own images where marked.</p>
+      <p>We’ll review attractions Mom & Dad will love, then discuss a few maybes. Each ride shows a <strong>2–5 photo grid (left)</strong> and a <strong>video embed spot (right)</strong>. Add your own images and YouTube IDs where noted.</p>
     </section>
 
     <!-- Spaceship Earth -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Spaceship Earth <span class="small">— Icon of EPCOT</span></h3>
-        <p class="small">A slow journey through the history of human communication inside the geodesic sphere.</p>
+        <p class="small">A classic, gentle ride through the history of human communication inside the geodesic sphere.</p>
       </div>
-      <div class="media-grid">
-        <div class="img-slot" aria-label="Spaceship Earth photo slot">Add image — exterior or night shots work great</div>
-        <div class="img-slot" aria-label="Spaceship Earth photo slot">Add image — ride scene or on-ride photo</div>
+
+      <div class="media-split">
+        <!-- LEFT: 2–5 images -->
+        <div class="thumb-grid">
+          <div class="img-slot">Add image — exterior / night glow</div>
+          <div class="img-slot">Add image — ride scene</div>
+          <!-- Example (uncomment + set src):
+          <img src="assets/epcot/spaceship-1.jpg" alt="Spaceship Earth exterior">
+          <img src="assets/epcot/spaceship-2.jpg" alt="Spaceship Earth on-ride scene">
+          -->
+        </div>
+
+        <!-- RIGHT: YouTube embed (replace VIDEO_ID) or keep placeholder -->
+        <div class="vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here later</div>
+          <!-- Or use:
+          <iframe
+            src="https://www.youtube.com/embed/VIDEO_ID"
+            title="Spaceship Earth video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+          -->
+        </div>
       </div>
+
       <ul class="facts">
         <li><strong>Type:</strong> Gentle dark ride (moving theater)</li>
         <li><strong>Duration:</strong> ~16 minutes</li>
-        <li><strong>Height:</strong> Any height; very low intensity</li>
-        <li><strong>Comfort:</strong> AC, continuous seating; small backward descent near the end</li>
-        <li><strong>Tip:</strong> Shorter waits early morning or late evening</li>
+        <li><strong>Height:</strong> Any height</li>
+        <li><strong>Comfort:</strong> AC, continuous seating; brief backward descent</li>
+        <li><strong>Tip:</strong> Shorter waits early or late; great first/last stop</li>
       </ul>
     </section>
 
@@ -79,18 +137,29 @@
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Living with the Land <span class="small">— The Land</span></h3>
-        <p class="small">Relaxing boat tour through greenhouses showcasing innovative farming techniques.</p>
+        <p class="small">Relaxing boat ride through working greenhouses and innovative farming exhibits.</p>
       </div>
-      <div class="media-grid">
-        <div class="img-slot" aria-label="Living with the Land photo slot">Add image — pavilion/exterior</div>
-        <div class="img-slot" aria-label="Living with the Land photo slot">Add image — greenhouse scenes/produce</div>
+
+      <div class="media-split">
+        <div class="thumb-grid">
+          <div class="img-slot">Add image — pavilion exterior</div>
+          <div class="img-slot">Add image — greenhouse crops</div>
+          <!-- <img src="assets/epcot/land-1.jpg" alt="The Land exterior"> -->
+          <!-- <img src="assets/epcot/land-2.jpg" alt="Greenhouse scene"> -->
+        </div>
+
+        <div class="vid-16x9">
+          <div class="video-placeholder">Optional: Living with the Land video embed</div>
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Living with the Land" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+        </div>
       </div>
+
       <ul class="facts">
-        <li><strong>Type:</strong> Boat ride through working greenhouses</li>
+        <li><strong>Type:</strong> Indoor boat ride through real greenhouses</li>
         <li><strong>Duration:</strong> ~14 minutes</li>
-        <li><strong>Height:</strong> Any height; very gentle</li>
-        <li><strong>Extras:</strong> “Behind the Seeds” walking tour (add-on) if time allows</li>
-        <li><strong>Tip:</strong> Usually manageable waits; great mid-day AC break</li>
+        <li><strong>Height:</strong> Any height</li>
+        <li><strong>Extras:</strong> “Behind the Seeds” walking tour add-on</li>
+        <li><strong>Tip:</strong> Great mid-day AC break; typically steady waits</li>
       </ul>
     </section>
 
@@ -98,37 +167,59 @@
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Soarin’ Around the World <span class="small">— The Land</span></h3>
-        <p class="small">Glide over global landmarks with sights, sounds, and scents for full immersion.</p>
+        <p class="small">Hang-glider simulation over global landmarks with sweeping visuals and scents.</p>
       </div>
-      <div class="media-grid">
-        <div class="img-slot" aria-label="Soarin photo slot">Add image — marquee or queue</div>
-        <div class="img-slot" aria-label="Soarin photo slot">Add image — hang glider seating (no flash on ride)</div>
+
+      <div class="media-split">
+        <div class="thumb-grid">
+          <div class="img-slot">Add image — marquee / queue</div>
+          <div class="img-slot">Add image — hang glider seats</div>
+          <!-- <img src="assets/epcot/soarin-1.jpg" alt="Soarin’ marquee"> -->
+          <!-- <img src="assets/epcot/soarin-2.jpg" alt="Soarin’ seating"> -->
+        </div>
+
+        <div class="vid-16x9">
+          <div class="video-placeholder">Optional: Soarin’ video embed</div>
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Soarin’ Around the World" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+        </div>
       </div>
+
       <ul class="facts">
-        <li><strong>Type:</strong> Motion simulator; rows lift into a domed screen</li>
-        <li><strong>Duration:</strong> ~5 minutes (plus load time)</li>
+        <li><strong>Type:</strong> Motion simulator; rows lift into a giant dome screen</li>
+        <li><strong>Duration:</strong> ~5 minutes (plus load)</li>
         <li><strong>Height:</strong> 40" (102 cm)</li>
-        <li><strong>Motion:</strong> Gentle swings; can feel high if sensitive to heights</li>
-        <li><strong>Tip:</strong> Best view is top-middle row; go early or late to avoid peak waits</li>
+        <li><strong>Sensation:</strong> Gentle swings; feels high if sensitive to heights</li>
+        <li><strong>Tip:</strong> Best views top-middle row; ride early/late to avoid peaks</li>
       </ul>
     </section>
 
-    <!-- Remy -->
+    <!-- Remy’s Ratatouille Adventure -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Remy’s Ratatouille Adventure <span class="small">— France</span></h3>
-        <p class="small">Shrink to Remy’s size on a trackless dark ride mixing sets, screens, and playful effects.</p>
+        <p class="small">Shrink to Remy’s size aboard a trackless dark ride that blends sets and screens.</p>
       </div>
-      <div class="media-grid">
-        <div class="img-slot" aria-label="Remy photo slot">Add image — Parisian street/exterior</div>
-        <div class="img-slot" aria-label="Remy photo slot">Add image — interior scene or vehicle</div>
+
+      <div class="media-split">
+        <div class="thumb-grid">
+          <div class="img-slot">Add image — Parisian streetscape</div>
+          <div class="img-slot">Add image — ride vehicle / kitchen scene</div>
+          <!-- <img src="assets/epcot/remy-1.jpg" alt="Remy exterior"> -->
+          <!-- <img src="assets/epcot/remy-2.jpg" alt="Remy interior scene"> -->
+        </div>
+
+        <div class="vid-16x9">
+          <div class="video-placeholder">Optional: Remy video embed</div>
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Remy’s Ratatouille Adventure" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+        </div>
       </div>
+
       <ul class="facts">
         <li><strong>Type:</strong> Trackless dark ride with 3D elements</li>
         <li><strong>Duration:</strong> ~5 minutes</li>
-        <li><strong>Height:</strong> Any height; family friendly</li>
-        <li><strong>Motion:</strong> Mild spins/quick turns; 3D glasses used</li>
-        <li><strong>Tip:</strong> Crowds build late morning—earlier is smoother</li>
+        <li><strong>Height:</strong> Any height</li>
+        <li><strong>Motion:</strong> Mild spins and quick turns; 3D glasses</li>
+        <li><strong>Tip:</strong> Crowds grow by late morning; earlier is smoother</li>
       </ul>
     </section>
 
@@ -136,62 +227,97 @@
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Test Track <span class="small">— World Discovery</span></h3>
-        <p class="small">Design a concept car, then put it through acceleration, handling, and high-speed tests.</p>
+        <p class="small">Design a concept car, then put it through acceleration, handling, and brake tests.</p>
       </div>
-      <div class="media-grid">
-        <div class="img-slot" aria-label="Test Track photo slot">Add image — exterior track/vehicles</div>
-        <div class="img-slot" aria-label="Test Track photo slot">Add image — design studio or load area</div>
+
+      <div class="media-split">
+        <div class="thumb-grid">
+          <div class="img-slot">Add image — outdoor high-speed loop</div>
+          <div class="img-slot">Add image — design studio / load area</div>
+          <!-- <img src="assets/epcot/testtrack-1.jpg" alt="Test Track exterior"> -->
+          <!-- <img src="assets/epcot/testtrack-2.jpg" alt="Test Track car"> -->
+        </div>
+
+        <div class="vid-16x9">
+          <div class="video-placeholder">Optional: Test Track video embed</div>
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Test Track" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+        </div>
       </div>
+
       <ul class="facts">
-        <li><strong>Type:</strong> High-speed thrill ride with outdoor lap</li>
+        <li><strong>Type:</strong> High-speed thrill ride (outdoor lap)</li>
         <li><strong>Duration:</strong> ~5 minutes (variable)</li>
         <li><strong>Height:</strong> 40" (102 cm)</li>
         <li><strong>Motion:</strong> Rapid acceleration; top speed ~65 mph (105 km/h)</li>
-        <li><strong>Tip:</strong> May close for weather; ride earlier if storms are forecast</li>
+        <li><strong>Tip:</strong> Weather closures possible—ride earlier if storms threaten</li>
       </ul>
     </section>
 
-    <!-- Nemo -->
+    <!-- The Seas with Nemo & Friends -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>The Seas with Nemo & Friends <span class="small">— The Seas</span></h3>
-        <p class="small">Gentle clamshell ride that leads into a massive aquarium with exhibits and shows.</p>
+        <p class="small">Gentle clamshell ride that leads into a massive aquarium with interactive exhibits.</p>
       </div>
-      <div class="media-grid">
-        <div class="img-slot" aria-label="Nemo photo slot">Add image — pavilion/exterior</div>
-        <div class="img-slot" aria-label="Nemo photo slot">Add image — aquarium or ride scene</div>
+
+      <div class="media-split">
+        <div class="thumb-grid">
+          <div class="img-slot">Add image — pavilion exterior</div>
+          <div class="img-slot">Add image — aquarium / ride scene</div>
+          <!-- <img src="assets/epcot/nemo-1.jpg" alt="The Seas exterior"> -->
+          <!-- <img src="assets/epcot/nemo-2.jpg" alt="Aquarium scene"> -->
+        </div>
+
+        <div class="vid-16x9">
+          <div class="video-placeholder">Optional: Nemo video embed</div>
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="The Seas with Nemo & Friends" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+        </div>
       </div>
+
       <ul class="facts">
-        <li><strong>Type:</strong> Omnimover dark ride + aquarium exhibits</li>
-        <li><strong>Duration:</strong> ~4–5 minutes (ride), explore at your pace after</li>
+        <li><strong>Type:</strong> Omnimover dark ride + large aquarium</li>
+        <li><strong>Duration:</strong> ~4–5 minutes (ride) + free explore time</li>
         <li><strong>Height:</strong> Any height</li>
-        <li><strong>Extras:</strong> Turtle Talk with Crush show nearby</li>
-        <li><strong>Tip:</strong> Great mid-day AC break; easy anytime</li>
+        <li><strong>Extras:</strong> Turtle Talk with Crush nearby</li>
+        <li><strong>Tip:</strong> Easy anytime; great mid-day AC break</li>
       </ul>
     </section>
 
-    <!-- Figment -->
+    <!-- Journey Into Imagination with Figment -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Journey Into Imagination with Figment <span class="small">— Imagination!</span></h3>
-        <p class="small">Whimsical tour with Figment exploring the five senses, humor, and a little mischief.</p>
+        <p class="small">Playful dark ride with Figment exploring the five senses and a bit of mischief.</p>
       </div>
-      <div class="media-grid">
-        <div class="img-slot" aria-label="Figment photo slot">Add image — pavilion/exterior</div>
-        <div class="img-slot" aria-label="Figment photo slot">Add image — on-ride scene or Figment</div>
+
+      <div class="media-split">
+        <div class="thumb-grid">
+          <div class="img-slot">Add image — pavilion / pyramids</div>
+          <div class="img-slot">Add image — Figment on-ride moment</div>
+          <!-- <img src="assets/epcot/figment-1.jpg" alt="Imagination pavilion exterior"> -->
+          <!-- <img src="assets/epcot/figment-2.jpg" alt="Figment ride scene"> -->
+        </div>
+
+        <div class="vid-16x9">
+          <div class="video-placeholder">Optional: Figment video embed</div>
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Journey Into Imagination with Figment" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+        </div>
       </div>
+
       <ul class="facts">
         <li><strong>Type:</strong> Gentle dark ride</li>
         <li><strong>Duration:</strong> ~6 minutes</li>
         <li><strong>Height:</strong> Any height</li>
-        <li><strong>Notes:</strong> Light “smell lab” gag; playful tone</li>
-        <li><strong>Tip:</strong> Typically shorter waits; easy add-on</li>
+        <li><strong>Notes:</strong> Light “smell lab” gag; whimsical tone</li>
+        <li><strong>Tip:</strong> Typically short waits; easy add-on</li>
       </ul>
     </section>
 
     <section class="section">
       <hr class="sep">
-      <p class="small">To add images, replace each <em>image slot</em> with an <code>&lt;img src="your-file.jpg" alt="..."&gt;</code> tag (keep the same layout). Videos and external links were intentionally removed for simplicity.</p>
+      <p class="small"><strong>How to add media:</strong> Replace each <em>image slot</em> with an
+        <code>&lt;img src="your-file.jpg" alt="..."&gt;</code> (keep the same layout). For videos, un-comment the
+        <code>&lt;iframe&gt;</code> and replace <code>VIDEO_ID</code> with the YouTube ID (the part after <code>watch?v=</code>).</p>
     </section>
   </main>
 
