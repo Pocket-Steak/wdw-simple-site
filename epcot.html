@@ -5,7 +5,7 @@
   <title>EPCOT — Trip Planner</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- Minimal page-local styles for the image grid + video split -->
+  <!-- Page-local styles for media split + carousel -->
   <style>
     /* spacing stacks */
     .stack-sm { display:flex; flex-direction:column; gap:.5rem; }
@@ -14,52 +14,76 @@
     .section  { padding:2rem 0; }
     .hero p   { margin-top:.5rem; max-width:72ch; }
 
-    /* image grid (2–5 images) + video split */
+    /* image/video split: SAME width columns */
     .media-split{
       display:grid;
-      grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);
+      grid-template-columns: 1fr 1fr;  /* equal sizes */
       gap:1.25rem;
       align-items:start;
     }
     @media (max-width: 900px){
       .media-split{ grid-template-columns:1fr; }
     }
-    .thumb-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      gap:.75rem;
-    }
-    .thumb-grid img{
-      width:100%; height:100%; object-fit:cover; border-radius:12px; display:block;
-      aspect-ratio:16/9;
-    }
-    .img-slot{
-      aspect-ratio:16/9;
-      border:1.5px dashed rgba(120,130,150,.6);
-      border-radius:12px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:.95rem; color:rgba(160,175,195,.9);
-      background:rgba(10,12,16,.35);
-      padding:1rem; text-align:center;
-    }
 
-    .vid-16x9{
+    /* 16:9 media wells */
+    .media-well{
+      position:relative;
       aspect-ratio:16/9;
       border-radius:12px;
       overflow:hidden;
       background:rgba(10,12,16,.35);
     }
+
+    /* --- Carousel (left) --- */
+    .carousel{ position:relative; }
+    .carousel .slide{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      width:100%; height:100%;
+      opacity:0; transition:opacity .3s ease;
+      background:rgba(10,12,16,.35);
+      color:rgba(160,175,195,.9); text-align:center; padding:1rem;
+    }
+    .carousel .slide.active{ opacity:1; }
+    /* If you use IMG tags as slides */
+    .carousel img.slide{
+      object-fit:cover; width:100%; height:100%; display:block;
+      background:none; padding:0; color:transparent;
+    }
+
+    /* Transparent gradient edge buttons */
+    .carousel .nav-btn{
+      position:absolute; top:0; bottom:0; width:min(14%,88px);
+      display:flex; align-items:center; justify-content:center;
+      border:none; cursor:pointer; padding:0;
+      color:rgba(255,255,255,.92); font-size:clamp(20px,3.2vw,34px);
+      background:transparent;
+      transition:opacity .2s ease;
+      opacity:.85;
+    }
+    .carousel .nav-btn:hover { opacity:1; }
+    .carousel .prev{
+      left:0;
+      background:linear-gradient(90deg, rgba(0,0,0,.32), rgba(0,0,0,0));
+    }
+    .carousel .next{
+      right:0;
+      background:linear-gradient(270deg, rgba(0,0,0,.32), rgba(0,0,0,0));
+    }
+    .carousel .nav-btn span{
+      display:inline-block; line-height:1; user-select:none;
+      text-shadow:0 2px 8px rgba(0,0,0,.5);
+    }
+
+    /* Video well (right) */
+    .vid-16x9{ position:relative; }
     .vid-16x9 iframe{
-      width:100%; height:100%; border:0; display:block;
+      position:absolute; inset:0; width:100%; height:100%; border:0; display:block;
     }
     .video-placeholder{
-      width:100%; height:100%;
-      border:1.5px dashed rgba(120,130,150,.6);
-      color:rgba(160,175,195,.9);
+      position:absolute; inset:0;
       display:flex; align-items:center; justify-content:center;
-      text-align:center; padding:1rem;
-      border-radius:12px;
-      background:transparent;
+      color:rgba(160,175,195,.9); text-align:center; padding:1rem;
     }
 
     /* details + captions */
@@ -67,7 +91,6 @@
     .facts li { margin:.15rem 0; }
     .badge { margin-left:.75rem; }
     .card h3 { margin-bottom:.25rem; }
-    .caption { margin-top:.25rem; opacity:.8; }
     .sep { margin:2rem 0; opacity:.25; }
   </style>
 </head>
@@ -90,10 +113,10 @@
         <h1>EPCOT</h1>
         <span class="badge">Comfort-first day</span>
       </div>
-      <p>We’ll review attractions Mom & Dad will love, then discuss a few maybes. Each ride shows a <strong>2–5 photo grid (left)</strong> and a <strong>video embed spot (right)</strong>. Add your own images and YouTube IDs where noted.</p>
+      <p>Each ride shows a <strong>left 16:9 image carousel</strong> (add 2–5 photos) and a <strong>right 16:9 video embed</strong>. Use the translucent side buttons or keyboard arrows to move between photos.</p>
     </section>
 
-    <!-- Spaceship Earth -->
+    <!-- ============ Spaceship Earth ============ -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Spaceship Earth <span class="small">— Icon of EPCOT</span></h3>
@@ -101,25 +124,28 @@
       </div>
 
       <div class="media-split">
-        <!-- LEFT: 2–5 images -->
-        <div class="thumb-grid">
-          <div class="img-slot">Add image — exterior / night glow</div>
-          <div class="img-slot">Add image — ride scene</div>
-          <!-- Example (uncomment + set src):
-          <img src="assets/epcot/spaceship-1.jpg" alt="Spaceship Earth exterior">
-          <img src="assets/epcot/spaceship-2.jpg" alt="Spaceship Earth on-ride scene">
+        <!-- LEFT: CAROUSEL -->
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Spaceship Earth photo gallery">
+          <!-- Replace these placeholder slides with your images:
+               <img class="slide active" src="assets/epcot/spaceship-1.jpg" alt="...">
+               <img class="slide" src="assets/epcot/spaceship-2.jpg" alt="...">
+               (You can add more .slide images)
           -->
+          <div class="slide active">Add image — exterior / night glow</div>
+          <div class="slide">Add image — ride scene</div>
+
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
-        <!-- RIGHT: YouTube embed (replace VIDEO_ID) or keep placeholder -->
-        <div class="vid-16x9">
+        <!-- RIGHT: VIDEO (or placeholder) -->
+        <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: paste a YouTube embed here later</div>
-          <!-- Or use:
-          <iframe
-            src="https://www.youtube.com/embed/VIDEO_ID"
-            title="Spaceship Earth video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
+          <!-- Example:
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+                  title="Spaceship Earth video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
           -->
         </div>
       </div>
@@ -133,7 +159,7 @@
       </ul>
     </section>
 
-    <!-- Living with the Land -->
+    <!-- ============ Living with the Land ============ -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Living with the Land <span class="small">— The Land</span></h3>
@@ -141,16 +167,15 @@
       </div>
 
       <div class="media-split">
-        <div class="thumb-grid">
-          <div class="img-slot">Add image — pavilion exterior</div>
-          <div class="img-slot">Add image — greenhouse crops</div>
-          <!-- <img src="assets/epcot/land-1.jpg" alt="The Land exterior"> -->
-          <!-- <img src="assets/epcot/land-2.jpg" alt="Greenhouse scene"> -->
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Living with the Land photo gallery">
+          <div class="slide active">Add image — pavilion exterior</div>
+          <div class="slide">Add image — greenhouse crops</div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
-        <div class="vid-16x9">
+        <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: Living with the Land video embed</div>
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Living with the Land" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
       </div>
 
@@ -163,7 +188,7 @@
       </ul>
     </section>
 
-    <!-- Soarin' -->
+    <!-- ============ Soarin' ============ -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Soarin’ Around the World <span class="small">— The Land</span></h3>
@@ -171,16 +196,15 @@
       </div>
 
       <div class="media-split">
-        <div class="thumb-grid">
-          <div class="img-slot">Add image — marquee / queue</div>
-          <div class="img-slot">Add image — hang glider seats</div>
-          <!-- <img src="assets/epcot/soarin-1.jpg" alt="Soarin’ marquee"> -->
-          <!-- <img src="assets/epcot/soarin-2.jpg" alt="Soarin’ seating"> -->
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Soarin’ photo gallery">
+          <div class="slide active">Add image — marquee / queue</div>
+          <div class="slide">Add image — hang glider seats</div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
-        <div class="vid-16x9">
+        <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: Soarin’ video embed</div>
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Soarin’ Around the World" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
       </div>
 
@@ -193,7 +217,7 @@
       </ul>
     </section>
 
-    <!-- Remy’s Ratatouille Adventure -->
+    <!-- ============ Remy’s Ratatouille Adventure ============ -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Remy’s Ratatouille Adventure <span class="small">— France</span></h3>
@@ -201,16 +225,15 @@
       </div>
 
       <div class="media-split">
-        <div class="thumb-grid">
-          <div class="img-slot">Add image — Parisian streetscape</div>
-          <div class="img-slot">Add image — ride vehicle / kitchen scene</div>
-          <!-- <img src="assets/epcot/remy-1.jpg" alt="Remy exterior"> -->
-          <!-- <img src="assets/epcot/remy-2.jpg" alt="Remy interior scene"> -->
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Remy photo gallery">
+          <div class="slide active">Add image — Parisian streetscape</div>
+          <div class="slide">Add image — ride vehicle / kitchen scene</div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
-        <div class="vid-16x9">
+        <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: Remy video embed</div>
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Remy’s Ratatouille Adventure" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
       </div>
 
@@ -223,7 +246,7 @@
       </ul>
     </section>
 
-    <!-- Test Track -->
+    <!-- ============ Test Track ============ -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Test Track <span class="small">— World Discovery</span></h3>
@@ -231,16 +254,15 @@
       </div>
 
       <div class="media-split">
-        <div class="thumb-grid">
-          <div class="img-slot">Add image — outdoor high-speed loop</div>
-          <div class="img-slot">Add image — design studio / load area</div>
-          <!-- <img src="assets/epcot/testtrack-1.jpg" alt="Test Track exterior"> -->
-          <!-- <img src="assets/epcot/testtrack-2.jpg" alt="Test Track car"> -->
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Test Track photo gallery">
+          <div class="slide active">Add image — outdoor high-speed loop</div>
+          <div class="slide">Add image — design studio / load area</div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
-        <div class="vid-16x9">
+        <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: Test Track video embed</div>
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Test Track" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
       </div>
 
@@ -253,7 +275,7 @@
       </ul>
     </section>
 
-    <!-- The Seas with Nemo & Friends -->
+    <!-- ============ The Seas with Nemo & Friends ============ -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>The Seas with Nemo & Friends <span class="small">— The Seas</span></h3>
@@ -261,16 +283,15 @@
       </div>
 
       <div class="media-split">
-        <div class="thumb-grid">
-          <div class="img-slot">Add image — pavilion exterior</div>
-          <div class="img-slot">Add image — aquarium / ride scene</div>
-          <!-- <img src="assets/epcot/nemo-1.jpg" alt="The Seas exterior"> -->
-          <!-- <img src="assets/epcot/nemo-2.jpg" alt="Aquarium scene"> -->
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Nemo photo gallery">
+          <div class="slide active">Add image — pavilion exterior</div>
+          <div class="slide">Add image — aquarium / ride scene</div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
-        <div class="vid-16x9">
+        <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: Nemo video embed</div>
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="The Seas with Nemo & Friends" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
       </div>
 
@@ -283,7 +304,7 @@
       </ul>
     </section>
 
-    <!-- Journey Into Imagination with Figment -->
+    <!-- ============ Journey Into Imagination with Figment ============ -->
     <section class="card section stack">
       <div class="stack-sm">
         <h3>Journey Into Imagination with Figment <span class="small">— Imagination!</span></h3>
@@ -291,16 +312,15 @@
       </div>
 
       <div class="media-split">
-        <div class="thumb-grid">
-          <div class="img-slot">Add image — pavilion / pyramids</div>
-          <div class="img-slot">Add image — Figment on-ride moment</div>
-          <!-- <img src="assets/epcot/figment-1.jpg" alt="Imagination pavilion exterior"> -->
-          <!-- <img src="assets/epcot/figment-2.jpg" alt="Figment ride scene"> -->
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Figment photo gallery">
+          <div class="slide active">Add image — pavilion / pyramids</div>
+          <div class="slide">Add image — Figment on-ride moment</div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
-        <div class="vid-16x9">
+        <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: Figment video embed</div>
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Journey Into Imagination with Figment" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
       </div>
 
@@ -315,14 +335,48 @@
 
     <section class="section">
       <hr class="sep">
-      <p class="small"><strong>How to add media:</strong> Replace each <em>image slot</em> with an
-        <code>&lt;img src="your-file.jpg" alt="..."&gt;</code> (keep the same layout). For videos, un-comment the
-        <code>&lt;iframe&gt;</code> and replace <code>VIDEO_ID</code> with the YouTube ID (the part after <code>watch?v=</code>).</p>
+      <p class="small"><strong>How to add media:</strong> Replace each placeholder <code>&lt;div class="slide"&gt;</code>
+        with real images using <code>&lt;img class="slide" src="your-file.jpg" alt="..."&gt;</code>. For videos, add an
+        <code>&lt;iframe&gt;</code> with your YouTube ID in the right well.</p>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container small">Edit this page: <code>epcot.html</code></div>
   </footer>
+
+  <!-- Lightweight carousel script (no deps) -->
+  <script>
+    (function () {
+      function initCarousel(root){
+        const slides = Array.from(root.querySelectorAll('.slide'));
+        if (!slides.length) return;
+        let idx = slides.findIndex(s => s.classList.contains('active'));
+        if (idx < 0) idx = 0;
+
+        function show(i){
+          slides.forEach((s, k) => s.classList.toggle('active', k === i));
+        }
+        function next(){ idx = (idx + 1) % slides.length; show(idx); }
+        function prev(){ idx = (idx - 1 + slides.length) % slides.length; show(idx); }
+
+        const prevBtn = root.querySelector('[data-action="prev"]');
+        const nextBtn = root.querySelector('[data-action="next"]');
+        if (prevBtn) prevBtn.addEventListener('click', prev);
+        if (nextBtn) nextBtn.addEventListener('click', next);
+
+        // Keyboard support when the carousel has focus
+        root.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+          if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+        });
+
+        // Ensure first slide is visible on load
+        show(idx);
+      }
+
+      document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+    })();
+  </script>
 </body>
 </html>
