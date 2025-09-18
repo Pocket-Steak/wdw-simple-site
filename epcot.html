@@ -4,8 +4,6 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EPCOT — Trip Planner</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Page-local styles for media split + carousel -->
   <style>
     /* spacing stacks */
     .stack-sm { display:flex; flex-direction:column; gap:.5rem; }
@@ -45,7 +43,6 @@
       color:rgba(160,175,195,.9); text-align:center; padding:1rem;
     }
     .carousel .slide.active{ opacity:1; }
-    /* If you use IMG tags as slides */
     .carousel img.slide{
       object-fit:cover; width:100%; height:100%; display:block;
       background:none; padding:0; color:transparent;
@@ -75,7 +72,7 @@
       text-shadow:0 2px 8px rgba(0,0,0,.5);
     }
 
-    /* Video well (right) */
+    /* Video well */
     .vid-16x9{ position:relative; }
     .vid-16x9 iframe{
       position:absolute; inset:0; width:100%; height:100%; border:0; display:block;
@@ -86,7 +83,7 @@
       color:rgba(160,175,195,.9); text-align:center; padding:1rem;
     }
 
-    /* facts list (only 3 items now) */
+    /* facts list (Type • Duration • Special Notes) */
     .facts { margin:.25rem 0 0; padding-left:1.25rem; line-height:1.65; }
     .facts li { margin:.15rem 0; }
     .badge { margin-left:.75rem; }
@@ -113,29 +110,32 @@
         <h1>EPCOT</h1>
         <span class="badge">Comfort-first day</span>
       </div>
-      <p>Each ride shows a <strong>left 16:9 image carousel</strong> (add 2–5 photos) and a <strong>right 16:9 video embed</strong>. Use the translucent side buttons or keyboard arrows to move between photos.</p>
+      <p>Each ride shows a <strong>left 16:9 image carousel</strong> (your photos) and a <strong>right 16:9 video embed</strong>. Use the translucent side buttons or keyboard arrows to move between photos.</p>
     </section>
 
-    <!-- ============ Spaceship Earth ============ -->
+    <!-- ============ Sections from your sheet ============ -->
+
     <section class="card section stack">
       <div class="stack-sm">
-        <h3>Spaceship Earth <span class="small">— Icon of EPCOT</span></h3>
-        <p class="small">A classic, gentle ride through the history of human communication inside the geodesic sphere.</p>
+        <h3>Spaceship Earth</h3>
+        <p class="small">Gentle dark ride (moving theater)</p>
       </div>
 
       <div class="media-split">
-        <!-- LEFT: CAROUSEL -->
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Spaceship Earth photo gallery">
-          <!-- Replace placeholders with your <img class="slide" ...> -->
-          <div class="slide active">Add image — exterior / night glow</div>
-          <div class="slide">Add image — ride scene</div>
+          <img class="slide active" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Walt_Disney_World_Epcot_Spaceship_Earth_%2850098996368%29.jpg/1200px-Walt_Disney_World_Epcot_Spaceship_Earth_%2850098996368%29.jpg?20200813073421" alt="Spaceship Earth image 1" loading="lazy">
+          <img class="slide" src="https://cdn.shortpixel.ai/spai/q_lossy+w_995+to_auto+ret_img+to_webp/https://photos.smugmug.com/photos/i-hb9xR4B/0/3b3073500/spaceship-earth-morning-empty-02232025-1-2048x1152.jpg" alt="Spaceship Earth image 2" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
-        <!-- RIGHT: VIDEO (or placeholder) -->
         <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: paste a YouTube embed here later</div>
+          <iframe
+            src="https://www.youtube.com/embed/lvMJw81CAGg?si=AVoP8KitsdDCcQBX"
+            title="Spaceship Earth video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
         </div>
       </div>
 
@@ -146,23 +146,28 @@
       </ul>
     </section>
 
-    <!-- ============ Living with the Land ============ -->
     <section class="card section stack">
       <div class="stack-sm">
-        <h3>Living with the Land <span class="small">— The Land</span></h3>
-        <p class="small">Relaxing boat ride through working greenhouses and innovative farming exhibits.</p>
+        <h3>Living with the Land</h3>
+        <p class="small">Indoor boat ride through real greenhouses</p>
       </div>
 
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Living with the Land photo gallery">
-          <div class="slide active">Add image — pavilion exterior</div>
-          <div class="slide">Add image — greenhouse crops</div>
+          <img class="slide active" src="https://blogmickey.com/wp-content/uploads/2021/09/living-with-the-land-1-2.jpg" alt="Living with the Land image 1" loading="lazy">
+          <img class="slide" src="https://diz-abled.com/wp-content/uploads/2015/04/living-with-the-land.jpg" alt="Living with the Land image 2" loading="lazy">
+          <img class="slide" src="https://www.wdwinfo.com/wp-content/uploads/2020/11/the-land-entrance-sign-cropped.jpg" alt="Living with the Land image 3" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
         <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: Living with the Land video embed</div>
+          <iframe
+            src="https://www.youtube.com/embed/FlxZf5P6a54?si=Mov6oUwRKdKnO3fJ"
+            title="Living with the Land video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
         </div>
       </div>
 
@@ -173,185 +178,62 @@
       </ul>
     </section>
 
-    <!-- ============ Soarin' ============ -->
     <section class="card section stack">
       <div class="stack-sm">
-        <h3>Soarin’ Around the World <span class="small">— The Land</span></h3>
-        <p class="small">Hang-glider simulation over global landmarks with sweeping visuals and scents.</p>
+        <h3>Soarin’ Around the World</h3>
+        <p class="small">Motion simulator; domed screen</p>
       </div>
 
       <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Soarin’ photo gallery">
-          <div class="slide active">Add image — marquee / queue</div>
-          <div class="slide">Add image — hang glider seats</div>
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Soarin’ Around the World photo gallery">
+          <img class="slide active" src="https://dvcfan.com/wp-content/uploads/2021/02/soarin-left-seating.jpg" alt="Soarin’ Around the World image 1" loading="lazy">
+          <img class="slide" src="https://www.themeparkinsider.com/art/2020/Soarin_Queue.jpg" alt="Soarin’ Around the World image 2" loading="lazy">
+          <img class="slide" src="https://www.wdwinfo.com/wp-content/uploads/2020/01/Soarin-sign.jpg" alt="Soarin’ Around the World image 3" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
         <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: Soarin’ video embed</div>
+          <iframe
+            src="https://www.youtube.com/embed/BeO1vi94CE0?si=TsXaZdhwTOiNiwjn"
+            title="Soarin’ Around the World video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
         </div>
       </div>
 
       <ul class="facts">
-        <li><strong>Type:</strong> Motion simulator; rows lift into a giant dome screen</li>
-        <li><strong>Duration:</strong> ~5 minutes (plus load)</li>
-        <li><strong>Special Notes:</strong> <em>Add later</em></li>
-      </ul>
-    </section>
-
-    <!-- ============ Remy’s Ratatouille Adventure ============ -->
-    <section class="card section stack">
-      <div class="stack-sm">
-        <h3>Remy’s Ratatouille Adventure <span class="small">— France</span></h3>
-        <p class="small">Shrink to Remy’s size aboard a trackless dark ride that blends sets and screens.</p>
-      </div>
-
-      <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Remy photo gallery">
-          <div class="slide active">Add image — Parisian streetscape</div>
-          <div class="slide">Add image — ride vehicle / kitchen scene</div>
-          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
-          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
-        </div>
-
-        <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: Remy video embed</div>
-        </div>
-      </div>
-
-      <ul class="facts">
-        <li><strong>Type:</strong> Trackless dark ride with 3D elements</li>
+        <li><strong>Type:</strong> Motion simulator; domed screen</li>
         <li><strong>Duration:</strong> ~5 minutes</li>
         <li><strong>Special Notes:</strong> <em>Add later</em></li>
       </ul>
     </section>
 
-    <!-- ============ Test Track ============ -->
     <section class="card section stack">
       <div class="stack-sm">
-        <h3>Test Track <span class="small">— World Discovery</span></h3>
-        <p class="small">Design a concept car, then put it through acceleration, handling, and brake tests.</p>
+        <h3>Remy’s Ratatouille Adventure</h3>
+        <p class="small">Trackless dark ride with 3D elements</p>
       </div>
 
       <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Test Track photo gallery">
-          <div class="slide active">Add image — outdoor high-speed loop</div>
-          <div class="slide">Add image — design studio / load area</div>
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Remy’s Ratatouille Adventure photo gallery">
+          <img class="slide active" src="https://www.wdwinfo.com/wp-content/uploads/2020/11/France-pavilion.jpg" alt="Remy’s Ratatouille Adventure image 1" loading="lazy">
+          <img class="slide" src="https://www.disneyfoodblog.com/wp-content/uploads/2019/03/remy-fountain.jpg" alt="Remy’s Ratatouille Adventure image 2" loading="lazy">
+          <img class="slide" src="https://www.wdwinfo.com/wp-content/uploads/2019/12/Remy-Entrance.jpg" alt="Remy’s Ratatouille Adventure image 3" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
 
         <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: Test Track video embed</div>
+          <iframe
+            src="https://www.youtube.com/embed/CS7Gm7jkDJo?si=saDcl3LLPJ5GFs9Q"
+            title="Remy’s Ratatouille Adventure video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
         </div>
       </div>
 
       <ul class="facts">
-        <li><strong>Type:</strong> High-speed thrill ride (outdoor lap)</li>
-        <li><strong>Duration:</strong> ~5 minutes (variable)</li>
-        <li><strong>Special Notes:</strong> <em>Add later</em></li>
-      </ul>
-    </section>
-
-    <!-- ============ The Seas with Nemo & Friends ============ -->
-    <section class="card section stack">
-      <div class="stack-sm">
-        <h3>The Seas with Nemo & Friends <span class="small">— The Seas</span></h3>
-        <p class="small">Gentle clamshell ride that leads into a massive aquarium with interactive exhibits.</p>
-      </div>
-
-      <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Nemo photo gallery">
-          <div class="slide active">Add image — pavilion exterior</div>
-          <div class="slide">Add image — aquarium / ride scene</div>
-          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
-          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
-        </div>
-
-        <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: Nemo video embed</div>
-        </div>
-      </div>
-
-      <ul class="facts">
-        <li><strong>Type:</strong> Omnimover dark ride + large aquarium</li>
-        <li><strong>Duration:</strong> ~4–5 minutes (ride)</li>
-        <li><strong>Special Notes:</strong> <em>Add later</em></li>
-      </ul>
-    </section>
-
-    <!-- ============ Journey Into Imagination with Figment ============ -->
-    <section class="card section stack">
-      <div class="stack-sm">
-        <h3>Journey Into Imagination with Figment <span class="small">— Imagination!</span></h3>
-        <p class="small">Playful dark ride with Figment exploring the five senses and a bit of mischief.</p>
-      </div>
-
-      <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Figment photo gallery">
-          <div class="slide active">Add image — pavilion / pyramids</div>
-          <div class="slide">Add image — Figment on-ride moment</div>
-          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
-          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
-        </div>
-
-        <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: Figment video embed</div>
-        </div>
-      </div>
-
-      <ul class="facts">
-        <li><strong>Type:</strong> Gentle dark ride</li>
-        <li><strong>Duration:</strong> ~6 minutes</li>
-        <li><strong>Special Notes:</strong> <em>Add later</em></li>
-      </ul>
-    </section>
-
-    <section class="section">
-      <hr class="sep">
-      <p class="small"><strong>How to add media:</strong> Replace each placeholder <code>&lt;div class="slide"&gt;</code>
-        with real images using <code>&lt;img class="slide" src="your-file.jpg" alt="..."&gt;</code>. For videos, add an
-        <code>&lt;iframe&gt;</code> with your YouTube ID in the right well. Update each ride’s <strong>Special Notes</strong> item when you’re ready.</p>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container small">Edit this page: <code>epcot.html</code></div>
-  </footer>
-
-  <!-- Lightweight carousel script (no deps) -->
-  <script>
-    (function () {
-      function initCarousel(root){
-        const slides = Array.from(root.querySelectorAll('.slide'));
-        if (!slides.length) return;
-        let idx = slides.findIndex(s => s.classList.contains('active'));
-        if (idx < 0) idx = 0;
-
-        function show(i){
-          slides.forEach((s, k) => s.classList.toggle('active', k === i));
-        }
-        function next(){ idx = (idx + 1) % slides.length; show(idx); }
-        function prev(){ idx = (idx - 1 + slides.length) % slides.length; show(idx); }
-
-        const prevBtn = root.querySelector('[data-action="prev"]');
-        const nextBtn = root.querySelector('[data-action="next"]');
-        if (prevBtn) prevBtn.addEventListener('click', prev);
-        if (nextBtn) nextBtn.addEventListener('click', next);
-
-        // Keyboard support when the carousel has focus
-        root.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
-          if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
-        });
-
-        // Ensure first slide is visible on load
-        show(idx);
-      }
-
-      document.querySelectorAll('[data-carousel]').forEach(initCarousel);
-    })();
-  </script>
-</body>
-</html>
+        <li><strong>Type:</strong> Trackless dark ride
