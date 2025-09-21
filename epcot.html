@@ -43,13 +43,13 @@
 
     /* ===== cards & inner spacing (polish) ===== */
     .card {
-      padding: 1rem 0 1.25rem;           /* breathing room */
+      padding: 1rem 0 1.25rem;
       border-radius: 16px;
     }
     .card .stack-sm,
     .card .media-split,
     .card .facts {
-      padding-left: 1.25rem;             /* inset content so it isn't on the edge */
+      padding-left: 1.25rem;
       padding-right: 1.25rem;
     }
 
@@ -61,7 +61,7 @@
       margin:0;
     }
     .card .small{
-      text-align:center;                 /* centered intro line */
+      text-align:center;
       margin-top:.35rem;
       opacity:.9;
     }
@@ -90,7 +90,6 @@
       object-fit:cover; width:100%; height:100%; display:block;
       background:none; padding:0; color:transparent;
     }
-    /* Hide accidental blank <img> so no tiny broken icon shows */
     img.slide[src=""], img.slide:not([src]) { display:none; }
 
     /* transparent edge buttons */
@@ -170,7 +169,6 @@
           <img class="slide active"
                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Walt_Disney_World_Epcot_Spaceship_Earth_%2850098996368%29.jpg/1200px-Walt_Disney_World_Epcot_Spaceship_Earth_%2850098996368%29.jpg?20200813073421"
                alt="Spaceship Earth exterior" loading="lazy">
-          <!-- Add more local images here if you like -->
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
@@ -240,9 +238,11 @@
 
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Soarin’ photo gallery">
+          <!-- You can keep local images; added your replacement alt below -->
           <img class="slide active" src="assets/epcot/soarin-entrance.jpg" alt="Soarin’ entrance" loading="lazy">
           <img class="slide" src="assets/epcot/soarin-sign.jpg" alt="Soarin’ sign" loading="lazy">
-          <img class="slide" src="https://www.wdwinfo.com/wp-content/uploads/2020/01/Soarin-sign.jpg" alt="Soarin’ sign alt" loading="lazy">
+          <!-- Soarin’ sign alt (your provided link) -->
+          <img class="slide" src="https://www.wdwinfo.com/wp-content/uploads/2020/01/Soarin-sign.jpg" alt="Soarin sign" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
@@ -273,9 +273,12 @@
 
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Remy photo gallery">
+          <!-- You can keep local images; added your provided links below -->
           <img class="slide active" src="assets/epcot/ratatouille-exterior.jpg" alt="Remy exterior (local)" loading="lazy">
           <img class="slide" src="assets/epcot/ratatouille-interior.jpg" alt="Remy interior (local)" loading="lazy">
+          <!-- Remy fountain -->
           <img class="slide" src="https://www.disneyfoodblog.com/wp-content/uploads/2019/03/remy-fountain.jpg" alt="Remy fountain" loading="lazy">
+          <!-- Remy entrance -->
           <img class="slide" src="https://www.wdwinfo.com/wp-content/uploads/2019/12/Remy-Entrance.jpg" alt="Remy entrance" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
@@ -307,8 +310,11 @@
 
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Test Track photo gallery">
+          <!-- Test Track car -->
           <img class="slide active" src="https://cdn1.parksmedia.wdprapps.disney.com/media/blog/wp-content/uploads/2016/12/asl670987563-624x352.jpg" alt="Test Track car" loading="lazy">
+          <!-- Test Track exterior -->
           <img class="slide" src="https://cdn1.parksmedia.wdprapps.disney.com/media/blog/wp-content/uploads/2023/09/test-track-epcot.jpg" alt="Test Track exterior" loading="lazy">
+          <!-- Test Track entrance -->
           <img class="slide" src="https://thedisneyjourney.com/wp-content/uploads/2020/01/Test-Track-Epcot-entrance.jpg" alt="Test Track entrance" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
@@ -340,9 +346,13 @@
 
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="The Seas with Nemo & Friends photo gallery">
+          <!-- Nemo pavilion -->
           <img class="slide active" src="https://www.wdwinfo.com/wp-content/uploads/2020/11/nemo-entrance.jpg" alt="Nemo pavilion" loading="lazy">
+          <!-- Nemo on-ride -->
           <img class="slide" src="https://www.wdwmagic.com/imgstore/element/0003-1017.jpg" alt="Nemo on-ride" loading="lazy">
+          <!-- The Seas pavilion -->
           <img class="slide" src="https://www.wdwinfo.com/wp-content/uploads/2017/09/seas-pavilion-epcot.jpg" alt="The Seas pavilion" loading="lazy">
+          <!-- local celeb image kept -->
           <img class="slide" src="assets/epcot/Celeb.JPG" alt="Nemo celeb photo (local)" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
@@ -374,8 +384,11 @@
 
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Figment photo gallery">
+          <!-- Imagination pavilion exterior -->
           <img class="slide active" src="https://insidethemagic.net/wp-content/uploads/2023/08/286245752_10159928407992296_7055513325709557454_n.jpg" alt="Imagination pavilion exterior" loading="lazy">
+          <!-- Imagination Institute interior -->
           <img class="slide" src="https://www.wdwinfo.com/wp-content/uploads/2019/10/Imagination-Institute-5.jpg" alt="Imagination Institute interior" loading="lazy">
+          <!-- Glass pyramids / pavilion wide -->
           <img class="slide" src="https://static.wikia.nocookie.net/disney/images/b/bc/Epcot_Imagination_Pavilion.jpg" alt="Glass pyramids" loading="lazy">
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
@@ -410,19 +423,16 @@
         <h3>Connections Eatery</h3>
         <p class="small">Bright, modern quick-service hub in World Celebration—great variety and mobile order friendly.</p>
       </div>
-
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Connections Eatery photo gallery">
           <div class="slide active">Add image — e.g. <code>assets/epcot/connections-1.jpg</code></div>
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
-
         <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: add a YouTube dining review link</div>
         </div>
       </div>
-
       <ul class="facts">
         <li><strong>Type:</strong> Quick Service</li>
         <li><strong>Duration:</strong> ~30–45 minutes</li>
@@ -436,19 +446,16 @@
         <h3>Coral Reef Restaurant</h3>
         <p class="small">Table service dining beside The Seas’ massive aquarium—floor-to-ceiling views.</p>
       </div>
-
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Coral Reef Restaurant photo gallery">
           <div class="slide active">Add image — e.g. <code>assets/epcot/coralreef-1.jpg</code></div>
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
-
         <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: add a YouTube dining review link</div>
         </div>
       </div>
-
       <ul class="facts">
         <li><strong>Type:</strong> Table Service</li>
         <li><strong>Duration:</strong> ~60–90 minutes</li>
@@ -462,19 +469,16 @@
         <h3>Via Napoli Ristorante e Pizzeria</h3>
         <p class="small">Wood-fired pies in the Italy pavilion—crispy crust, fresh toppings, shareable sizes.</p>
       </div>
-
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Via Napoli photo gallery">
           <div class="slide active">Add image — e.g. <code>assets/epcot/vianapoli-1.jpg</code></div>
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
-
         <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: add a YouTube dining review link</div>
         </div>
       </div>
-
       <ul class="facts">
         <li><strong>Type:</strong> Table Service</li>
         <li><strong>Duration:</strong> ~60–90 minutes</li>
@@ -488,19 +492,16 @@
         <h3>Sunshine Seasons</h3>
         <p class="small">Casual, bright food court in The Land—fresh choices and plenty of seating.</p>
       </div>
-
       <div class="media-split">
         <div class="media-well carousel" data-carousel tabindex="0" aria-label="Sunshine Seasons photo gallery">
           <div class="slide active">Add image — e.g. <code>assets/epcot/sunshine-1.jpg</code></div>
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
-
         <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: add a YouTube dining review link</div>
         </div>
       </div>
-
       <ul class="facts">
         <li><strong>Type:</strong> Quick Service</li>
         <li><strong>Duration:</strong> ~30–45 minutes</li>
