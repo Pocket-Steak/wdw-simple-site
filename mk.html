@@ -43,13 +43,13 @@
 
     /* ===== cards & inner spacing (polish) ===== */
     .card {
-      padding: 1rem 0 1.25rem;           /* breathing room */
+      padding: 1rem 0 1.25rem;
       border-radius: 16px;
     }
     .card .stack-sm,
     .card .media-split,
     .card .facts {
-      padding-left: 1.25rem;             /* inset content so it isn't on the edge */
+      padding-left: 1.25rem;
       padding-right: 1.25rem;
     }
 
@@ -61,7 +61,7 @@
       margin:0;
     }
     .card .small{
-      text-align:center;                 /* centered intro line */
+      text-align:center;
       margin-top:.35rem;
       opacity:.9;
     }
@@ -90,7 +90,6 @@
       object-fit:cover; width:100%; height:100%; display:block;
       background:none; padding:0; color:transparent;
     }
-    /* Hide accidental blank <img> so no tiny broken icon shows */
     img.slide[src=""], img.slide:not([src]) { display:none; }
 
     /* transparent edge buttons */
@@ -172,9 +171,6 @@
         </div>
         <div class="media-well vid-16x9">
           <div class="video-placeholder">Optional: paste a YouTube embed here</div>
-          <!-- Example:
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1&playsinline=1" title="TRON video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          -->
         </div>
       </div>
       <ul class="facts">
@@ -322,79 +318,10 @@
       </ul>
     </section>
 
-    <!-- Peter Pan’s Flight -->
-    <section class="card section stack">
-      <div class="stack-sm">
-        <h3>Peter Pan’s Flight</h3>
-        <p class="small">Sail over London and Never Land in a charming suspended pirate ship.</p>
-      </div>
-      <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Peter Pan’s Flight photo gallery">
-          <div class="slide active">Add image — e.g. <code>assets/mk/peterpan-1.jpg</code></div>
-          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
-          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
-        </div>
-        <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
-        </div>
-      </div>
-      <ul class="facts">
-        <li><strong>Type:</strong> Suspended dark ride</li>
-        <li><strong>Duration:</strong> ~3 minutes</li>
-        <li><strong>Special Notes:</strong> <em>Add later</em></li>
-      </ul>
-    </section>
-
     <!-- ================== FOOD & DINING ================== -->
     <section class="section">
       <span class="section-kicker">Refuel</span>
       <h2 class="section-title">Food &amp; Dining</h2>
-    </section>
-
-    <!-- Be Our Guest Restaurant -->
-    <section class="card section stack">
-      <div class="stack-sm">
-        <h3>Be Our Guest Restaurant</h3>
-        <p class="small">Dine in Beast’s Castle with grand ballrooms and a French-inspired menu.</p>
-      </div>
-      <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Be Our Guest photo gallery">
-          <div class="slide active">Add image — e.g. <code>assets/mk/beourguest-1.jpg</code></div>
-          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
-          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
-        </div>
-        <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: add a YouTube dining review</div>
-        </div>
-      </div>
-      <ul class="facts">
-        <li><strong>Type:</strong> Table Service</li>
-        <li><strong>Duration:</strong> ~60–90 minutes</li>
-        <li><strong>Special Notes:</strong> <em>Add later</em></li>
-      </ul>
-    </section>
-
-    <!-- Jungle Navigation Co. LTD Skipper Canteen -->
-    <section class="card section stack">
-      <div class="stack-sm">
-        <h3>Skipper Canteen</h3>
-        <p class="small">Pun-filled world flavors from the Jungle Cruise’s finest skippers.</p>
-      </div>
-      <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Skipper Canteen photo gallery">
-          <div class="slide active">Add image — e.g. <code>assets/mk/skipper-1.jpg</code></div>
-          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
-          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
-        </div>
-        <div class="media-well vid-16x9">
-          <div class="video-placeholder">Optional: add a YouTube dining review</div>
-        </div>
-      </div>
-      <ul class="facts">
-        <li><strong>Type:</strong> Table Service</li>
-        <li><strong>Duration:</strong> ~60–90 minutes</li>
-        <li><strong>Special Notes:</strong> <em>Add later</em></li>
-      </ul>
     </section>
 
     <!-- Columbia Harbour House -->
@@ -420,15 +347,38 @@
       </ul>
     </section>
 
-    <!-- Casey’s Corner -->
+    <!-- Liberty Tree Tavern -->
     <section class="card section stack">
       <div class="stack-sm">
-        <h3>Casey’s Corner</h3>
-        <p class="small">Classic hot dogs and ballpark vibes at the end of Main Street, U.S.A.</p>
+        <h3>Liberty Tree Tavern</h3>
+        <p class="small">Colonial-style table service with family-style platters and cozy rooms.</p>
       </div>
       <div class="media-split">
-        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Casey’s Corner photo gallery">
-          <div class="slide active">Add image — e.g. <code>assets/mk/caseys-1.jpg</code></div>
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Liberty Tree Tavern photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/liberty-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Table Service</li>
+        <li><strong>Duration:</strong> ~60–90 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Cosmic Ray’s Starlight Cafe -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Cosmic Ray’s Starlight Cafe</h3>
+        <p class="small">Quick-service comfort food with Sonny Eclipse performing in Tomorrowland.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Cosmic Ray’s Starlight Cafe photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/cosmicrays-1.jpg</code></div>
           <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
           <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
         </div>
@@ -438,7 +388,30 @@
       </div>
       <ul class="facts">
         <li><strong>Type:</strong> Quick Service</li>
-        <li><strong>Duration:</strong> ~20–30 minutes</li>
+        <li><strong>Duration:</strong> ~30–45 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Gaston’s Tavern -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Gaston’s Tavern</h3>
+        <p class="small">Rustic snacks and LeFou’s Brew in a Beauty and the Beast-themed nook.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Gaston’s Tavern photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/gastons-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Quick Service / Snacks</li>
+        <li><strong>Duration:</strong> ~15–30 minutes</li>
         <li><strong>Special Notes:</strong> <em>Add later</em></li>
       </ul>
     </section>
