@@ -4,6 +4,131 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Magic Kingdom — Trip Planner</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== layout helpers ===== */
+    .stack-sm { display:flex; flex-direction:column; gap:.5rem; }
+    .stack    { display:flex; flex-direction:column; gap:1rem; }
+    .stack-lg { display:flex; flex-direction:column; gap:1.5rem; }
+    .section  { padding:2rem 0; }
+    .hero p   { margin-top:.5rem; max-width:72ch; }
+
+    /* ===== section titles ===== */
+    .section-title{
+      text-align:center;
+      font-size:clamp(2rem, 3.6vw, 2.8rem);
+      margin: .25rem 0 1rem;
+      letter-spacing:.25px;
+    }
+    .section-kicker{
+      display:block;
+      text-align:center;
+      opacity:.8;
+      margin-bottom:.25rem;
+      font-size:.95rem;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+    }
+
+    /* ===== media split (equal columns) ===== */
+    .media-split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:1.25rem;
+      align-items:start;
+      margin-top:.75rem;
+    }
+    @media (max-width: 900px){
+      .media-split{ grid-template-columns:1fr; }
+    }
+
+    /* ===== cards & inner spacing (polish) ===== */
+    .card {
+      padding: 1rem 0 1.25rem;           /* breathing room */
+      border-radius: 16px;
+    }
+    .card .stack-sm,
+    .card .media-split,
+    .card .facts {
+      padding-left: 1.25rem;             /* inset content so it isn't on the edge */
+      padding-right: 1.25rem;
+    }
+
+    /* ===== headings & blurbs ===== */
+    .card h3{
+      text-align:center;
+      font-size:clamp(2rem, 3.4vw, 2.6rem);
+      line-height:1.2;
+      margin:0;
+    }
+    .card .small{
+      text-align:center;                 /* centered intro line */
+      margin-top:.35rem;
+      opacity:.9;
+    }
+
+    /* ===== media wells (16:9) ===== */
+    .media-well{
+      position:relative;
+      aspect-ratio:16/9;
+      border-radius:16px;
+      overflow:hidden;
+      background:rgba(10,12,16,.35);
+    }
+
+    /* ----- carousel ----- */
+    .carousel{ position:relative; }
+    .carousel .slide{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      width:100%; height:100%;
+      opacity:0; transition:opacity .3s ease;
+      background:rgba(10,12,16,.35);
+      color:rgba(160,175,195,.9); text-align:center; padding:1rem;
+    }
+    .carousel .slide.active{ opacity:1; }
+    .carousel img.slide{
+      object-fit:cover; width:100%; height:100%; display:block;
+      background:none; padding:0; color:transparent;
+    }
+    /* Hide accidental blank <img> so no tiny broken icon shows */
+    img.slide[src=""], img.slide:not([src]) { display:none; }
+
+    /* transparent edge buttons */
+    .carousel .nav-btn{
+      position:absolute; top:0; bottom:0; width:min(14%,88px);
+      display:flex; align-items:center; justify-content:center;
+      border:none; cursor:pointer; padding:0;
+      color:rgba(255,255,255,.92); font-size:clamp(20px,3.2vw,34px);
+      background:transparent; transition:opacity .2s ease; opacity:.85;
+    }
+    .carousel .nav-btn:hover { opacity:1; }
+    .carousel .prev{
+      left:0; background:linear-gradient(90deg, rgba(0,0,0,.32), rgba(0,0,0,0));
+    }
+    .carousel .next{
+      right:0; background:linear-gradient(270deg, rgba(0,0,0,.32), rgba(0,0,0,0));
+    }
+    .carousel .nav-btn span{ text-shadow:0 2px 8px rgba(0,0,0,.5); user-select:none; }
+
+    /* ----- video ----- */
+    .vid-16x9 iframe{
+      position:absolute; inset:0; width:100%; height:100%; border:0; display:block;
+    }
+    .video-placeholder{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      color:rgba(160,175,195,.9); text-align:center; padding:1rem;
+    }
+
+    /* ===== facts (bullets) ===== */
+    .facts { margin:.75rem 0 0; padding-left:2rem; line-height:1.7; }
+    .facts li { margin:.2rem 0; }
+
+    /* ===== bottom helper ===== */
+    .sep { margin:2rem 0; opacity:.25; }
+    .broken-report { background: rgba(255,0,0,.07); border:1px solid rgba(255,0,0,.25); border-radius:12px; padding:1rem; }
+    .broken-report h4 { margin:.25rem 0 .5rem; }
+    .broken-report code { word-break:break-all; }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -18,53 +143,355 @@
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="park-title"><h1>Magic Kingdom</h1><span class="badge">Classic Disney</span></div>
-      <p>Two photos + one video per featured ride. Replace the placeholders with your favorite sources.</p>
+  <main class="container stack-lg">
+    <section class="hero section">
+      <div class="park-title">
+        <h1>Magic Kingdom</h1>
+        <span class="badge">Comfort-first day</span>
+      </div>
+      <p>Each attraction pairs a <strong>left 16:9 photo carousel</strong> with a <strong>right 16:9 video</strong>. Tap the translucent arrows or use your keyboard arrows to flip through photos.</p>
+    </section>
+
+    <!-- ================== RIDES ================== -->
+    <section class="section">
+      <span class="section-kicker">Explore</span>
+      <h2 class="section-title">Rides</h2>
+    </section>
+
+    <!-- TRON Lightcycle / Run -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>TRON Lightcycle / Run</h3>
+        <p class="small">Lean forward and launch into the Grid on a neon-charged coaster race.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="TRON Lightcycle / Run photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/tron-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
+          <!-- Example:
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1&playsinline=1" title="TRON video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          -->
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Launched steel coaster</li>
+        <li><strong>Duration:</strong> ~2 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
     </section>
 
     <!-- Haunted Mansion -->
-    <section class="card section">
-      <h3>Haunted Mansion <span class="small">• Liberty Square</span></h3>
-      <p class="small">Spooky, funny, and iconic — a family favorite dark ride.</p>
-      <div class="media-3">
-        <figure class="frame"><img src="ADD_IMAGE_URL_1" alt="Haunted Mansion image 1"></figure>
-        <figure class="frame"><img src="ADD_IMAGE_URL_2" alt="Haunted Mansion image 2"></figure>
-        <div class="frame"><iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Haunted Mansion video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Haunted Mansion</h3>
+        <p class="small">999 happy haunts invite you on a spooky, witty tour of a timeless manor.</p>
       </div>
-      <p class="caption"><a target="_blank" href="https://disneyworld.disney.go.com/attractions/magic-kingdom/haunted-mansion/">Official Disney page</a></p>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Haunted Mansion photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/haunted-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Omnimover dark ride</li>
+        <li><strong>Duration:</strong> ~8 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
     </section>
 
     <!-- Pirates of the Caribbean -->
-    <section class="card section">
-      <h3>Pirates of the Caribbean <span class="small">• Adventureland</span></h3>
-      <p class="small">Boat ride with buccaneers, music, and classic scenes.</p>
-      <div class="media-3">
-        <figure class="frame"><img src="ADD_IMAGE_URL_1" alt="Pirates image 1"></figure>
-        <figure class="frame"><img src="ADD_IMAGE_URL_2" alt="Pirates image 2"></figure>
-        <div class="frame"><iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Pirates ride video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Pirates of the Caribbean</h3>
+        <p class="small">Sail past swashbuckling scenes, cannon fire, and a certain captain on the hunt for treasure.</p>
       </div>
-      <p class="caption"><a target="_blank" href="https://disneyworld.disney.go.com/attractions/magic-kingdom/pirates-of-the-caribbean/">Official Disney page</a></p>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Pirates of the Caribbean photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/pirates-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Boat dark ride</li>
+        <li><strong>Duration:</strong> ~8 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
     </section>
 
-    <!-- PeopleMover -->
-    <section class="card section">
-      <h3>Tomorrowland Transit Authority PeopleMover <span class="small">• Tomorrowland</span></h3>
-      <p class="small">Relaxing tour above Tomorrowland — perfect rest ride.</p>
-      <div class="media-3">
-        <figure class="frame"><img src="ADD_IMAGE_URL_1" alt="PeopleMover image 1"></figure>
-        <figure class="frame"><img src="ADD_IMAGE_URL_2" alt="PeopleMover image 2"></figure>
-        <div class="frame"><iframe src="https://www.youtube.com/embed/VIDEO_ID" title="PeopleMover ride video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <!-- Big Thunder Mountain Railroad -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Big Thunder Mountain Railroad</h3>
+        <p class="small">Ride a runaway train through the wildest mine in the wilderness!</p>
       </div>
-      <p class="caption"><a target="_blank" href="https://disneyworld.disney.go.com/attractions/magic-kingdom/tomorrowland-transit-authority-peoplemover/">Official Disney page</a></p>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Big Thunder Mountain Railroad photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/thunder-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Family coaster</li>
+        <li><strong>Duration:</strong> ~3.5 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Tiana’s Bayou Adventure -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Tiana’s Bayou Adventure</h3>
+        <p class="small">Join Tiana for a musical journey through the bayou—ending with a grand splash.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Tiana’s Bayou Adventure photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/tianas-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Log flume</li>
+        <li><strong>Duration:</strong> ~10 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Space Mountain -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Space Mountain</h3>
+        <p class="small">Blast through the stars on a classic indoor coaster in the dark.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Space Mountain photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/space-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Indoor coaster</li>
+        <li><strong>Duration:</strong> ~3 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Seven Dwarfs Mine Train -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Seven Dwarfs Mine Train</h3>
+        <p class="small">A smooth swaying family coaster through a sparkling diamond mine.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Seven Dwarfs Mine Train photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/mine-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Family coaster</li>
+        <li><strong>Duration:</strong> ~2.5 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Peter Pan’s Flight -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Peter Pan’s Flight</h3>
+        <p class="small">Sail over London and Never Land in a charming suspended pirate ship.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Peter Pan’s Flight photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/peterpan-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: paste a YouTube embed here</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Suspended dark ride</li>
+        <li><strong>Duration:</strong> ~3 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- ================== FOOD & DINING ================== -->
+    <section class="section">
+      <span class="section-kicker">Refuel</span>
+      <h2 class="section-title">Food &amp; Dining</h2>
+    </section>
+
+    <!-- Be Our Guest Restaurant -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Be Our Guest Restaurant</h3>
+        <p class="small">Dine in Beast’s Castle with grand ballrooms and a French-inspired menu.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Be Our Guest photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/beourguest-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Table Service</li>
+        <li><strong>Duration:</strong> ~60–90 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Jungle Navigation Co. LTD Skipper Canteen -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Skipper Canteen</h3>
+        <p class="small">Pun-filled world flavors from the Jungle Cruise’s finest skippers.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Skipper Canteen photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/skipper-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Table Service</li>
+        <li><strong>Duration:</strong> ~60–90 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Columbia Harbour House -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Columbia Harbour House</h3>
+        <p class="small">New England-inspired quick service with an airy upstairs dining room.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Columbia Harbour House photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/columbia-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Quick Service</li>
+        <li><strong>Duration:</strong> ~30–45 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Casey’s Corner -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Casey’s Corner</h3>
+        <p class="small">Classic hot dogs and ballpark vibes at the end of Main Street, U.S.A.</p>
+      </div>
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Casey’s Corner photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/mk/caseys-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review</div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><strong>Type:</strong> Quick Service</li>
+        <li><strong>Duration:</strong> ~20–30 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
     </section>
 
     <section class="section">
-      <hr class="sep"><p class="small">Swap in Seven Dwarfs, Jungle Cruise, TRON, etc., by duplicating a section block and editing text/links.</p>
+      <hr class="sep">
+      <div id="broken-report" class="broken-report" style="display:none;">
+        <h4>Links that failed to load:</h4>
+        <ul id="broken-list" class="small"></ul>
+      </div>
+      <p class="small">If any photo doesn’t show, swap it for a direct image URL (ending in <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.webp</code>, or <code>.avif</code>) or use a local file in <code>assets/mk/</code>.</p>
     </section>
   </main>
 
-  <footer class="footer"><div class="container small">Edit this page: <code>mk.html</code></div></footer>
+  <footer class="footer">
+    <div class="container small">Magic Kingdom plan — same layout as EPCOT</div>
+  </footer>
+
+  <script>
+    (function () {
+      function initCarousel(root){
+        const slides = Array.from(root.querySelectorAll('.slide'));
+        if (!slides.length) return;
+        let idx = slides.findIndex(s => s.classList.contains('active'));
+        if (idx < 0) idx = 0;
+        function show(i){ slides.forEach((s, k) => s.classList.toggle('active', k === i)); }
+        function next(){ idx = (idx + 1) % slides.length; show(idx); }
+        function prev(){ idx = (idx - 1 + slides.length) % slides.length; show(idx); }
+        root.querySelector('[data-action="prev"]')?.addEventListener('click', prev);
+        root.querySelector('[data-action="next"]')?.addEventListener('click', next);
+        root.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+          if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+        });
+        show(idx);
+      }
+      document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+
+      // Show broken image list at the bottom if any fail
+      document.querySelectorAll('img.slide').forEach(img => {
+        img.addEventListener('error', () => {
+          const box = document.getElementById('broken-report');
+          const list = document.getElementById('broken-list');
+          if (box && list) {
+            box.style.display = 'block';
+            const li = document.createElement('li');
+            const title = img.alt || 'Image';
+            li.innerHTML = '<strong>' + title + ':</strong> <code>' + img.src + '</code>';
+            list.appendChild(li);
+          }
+        }, {once:true});
+      });
+    })();
+  </script>
 </body>
 </html>
