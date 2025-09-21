@@ -5,34 +5,77 @@
   <title>EPCOT — Trip Planner</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* layout helpers */
+    /* ===== layout helpers ===== */
     .stack-sm { display:flex; flex-direction:column; gap:.5rem; }
     .stack    { display:flex; flex-direction:column; gap:1rem; }
     .stack-lg { display:flex; flex-direction:column; gap:1.5rem; }
     .section  { padding:2rem 0; }
     .hero p   { margin-top:.5rem; max-width:72ch; }
 
-    /* split media: equal columns */
+    /* ===== section titles ===== */
+    .section-title{
+      text-align:center;
+      font-size:clamp(2rem, 3.6vw, 2.8rem);
+      margin: .25rem 0 1rem;
+      letter-spacing:.25px;
+    }
+    .section-kicker{
+      display:block;
+      text-align:center;
+      opacity:.8;
+      margin-bottom:.25rem;
+      font-size:.95rem;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+    }
+
+    /* ===== media split (equal columns) ===== */
     .media-split{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:1.25rem;
       align-items:start;
+      margin-top:.75rem;
     }
     @media (max-width: 900px){
       .media-split{ grid-template-columns:1fr; }
     }
 
-    /* 16:9 wells */
+    /* ===== cards & inner spacing (polish) ===== */
+    .card {
+      padding: 1rem 0 1.25rem;           /* breathing room */
+      border-radius: 16px;
+    }
+    .card .stack-sm,
+    .card .media-split,
+    .card .facts {
+      padding-left: 1.25rem;             /* inset content so it isn't on the edge */
+      padding-right: 1.25rem;
+    }
+
+    /* ===== headings & blurbs ===== */
+    .card h3{
+      text-align:center;
+      font-size:clamp(2rem, 3.4vw, 2.6rem);
+      line-height:1.2;
+      margin:0;
+    }
+    .card .small{
+      text-align:center;                 /* centered intro line */
+      margin-top:.35rem;
+      opacity:.9;
+    }
+
+    /* ===== media wells (16:9) ===== */
     .media-well{
       position:relative;
       aspect-ratio:16/9;
-      border-radius:12px;
+      border-radius:16px;
       overflow:hidden;
       background:rgba(10,12,16,.35);
     }
 
-    /* carousel */
+    /* ----- carousel ----- */
     .carousel{ position:relative; }
     .carousel .slide{
       position:absolute; inset:0;
@@ -47,6 +90,10 @@
       object-fit:cover; width:100%; height:100%; display:block;
       background:none; padding:0; color:transparent;
     }
+    /* Hide accidental blank <img> so no tiny broken icon shows */
+    img.slide[src=""], img.slide:not([src]) { display:none; }
+
+    /* transparent edge buttons */
     .carousel .nav-btn{
       position:absolute; top:0; bottom:0; width:min(14%,88px);
       display:flex; align-items:center; justify-content:center;
@@ -56,16 +103,14 @@
     }
     .carousel .nav-btn:hover { opacity:1; }
     .carousel .prev{
-      left:0;
-      background:linear-gradient(90deg, rgba(0,0,0,.32), rgba(0,0,0,0));
+      left:0; background:linear-gradient(90deg, rgba(0,0,0,.32), rgba(0,0,0,0));
     }
     .carousel .next{
-      right:0;
-      background:linear-gradient(270deg, rgba(0,0,0,.32), rgba(0,0,0,0));
+      right:0; background:linear-gradient(270deg, rgba(0,0,0,.32), rgba(0,0,0,0));
     }
     .carousel .nav-btn span{ text-shadow:0 2px 8px rgba(0,0,0,.5); user-select:none; }
 
-    /* video */
+    /* ----- video ----- */
     .vid-16x9 iframe{
       position:absolute; inset:0; width:100%; height:100%; border:0; display:block;
     }
@@ -74,19 +119,12 @@
       color:rgba(160,175,195,.9); text-align:center; padding:1rem;
     }
 
-    /* headings + facts */
-    .card h3{
-      text-align:center;
-      font-size:clamp(1.75rem, 3vw, 2.15rem);
-      line-height:1.2;
-      margin:0;
-    }
-    .card .small { opacity:.9; }
-    .facts { margin:.75rem 0 0; padding-left:2.25rem; line-height:1.7; } /* more left padding */
+    /* ===== facts (bullets) ===== */
+    .facts { margin:.75rem 0 0; padding-left:2rem; line-height:1.7; }
     .facts li { margin:.2rem 0; }
-    .sep { margin:2rem 0; opacity:.25; }
 
-    /* broken link notice */
+    /* ===== bottom helper ===== */
+    .sep { margin:2rem 0; opacity:.25; }
     .broken-report { background: rgba(255,0,0,.07); border:1px solid rgba(255,0,0,.25); border-radius:12px; padding:1rem; }
     .broken-report h4 { margin:.25rem 0 .5rem; }
     .broken-report code { word-break:break-all; }
@@ -111,7 +149,13 @@
         <h1>EPCOT</h1>
         <span class="badge">Comfort-first day</span>
       </div>
-      <p>Each attraction pairs a **left 16:9 photo carousel** with a **right 16:9 video**. Tap the translucent arrows or use your keyboard arrows to flip through photos.</p>
+      <p>Each attraction pairs a <strong>left 16:9 photo carousel</strong> with a <strong>right 16:9 video</strong>. Tap the translucent arrows or use your keyboard arrows to flip through photos.</p>
+    </section>
+
+    <!-- ================== RIDES ================== -->
+    <section class="section">
+      <span class="section-kicker">Explore</span>
+      <h2 class="section-title">Rides</h2>
     </section>
 
     <!-- ================== Spaceship Earth ================== -->
@@ -350,6 +394,116 @@
       <ul class="facts">
         <li><strong>Type:</strong> Gentle dark ride</li>
         <li><strong>Duration:</strong> ~6 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- ================== FOOD & DINING ================== -->
+    <section class="section">
+      <span class="section-kicker">Refuel</span>
+      <h2 class="section-title">Food &amp; Dining</h2>
+    </section>
+
+    <!-- Connections Eatery -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Connections Eatery</h3>
+        <p class="small">Bright, modern quick-service hub in World Celebration—great variety and mobile order friendly.</p>
+      </div>
+
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Connections Eatery photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/epcot/connections-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review link</div>
+        </div>
+      </div>
+
+      <ul class="facts">
+        <li><strong>Type:</strong> Quick Service</li>
+        <li><strong>Duration:</strong> ~30–45 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Coral Reef Restaurant -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Coral Reef Restaurant</h3>
+        <p class="small">Table service dining beside The Seas’ massive aquarium—floor-to-ceiling views.</p>
+      </div>
+
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Coral Reef Restaurant photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/epcot/coralreef-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review link</div>
+        </div>
+      </div>
+
+      <ul class="facts">
+        <li><strong>Type:</strong> Table Service</li>
+        <li><strong>Duration:</strong> ~60–90 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Via Napoli -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Via Napoli Ristorante e Pizzeria</h3>
+        <p class="small">Wood-fired pies in the Italy pavilion—crispy crust, fresh toppings, shareable sizes.</p>
+      </div>
+
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Via Napoli photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/epcot/vianapoli-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review link</div>
+        </div>
+      </div>
+
+      <ul class="facts">
+        <li><strong>Type:</strong> Table Service</li>
+        <li><strong>Duration:</strong> ~60–90 minutes</li>
+        <li><strong>Special Notes:</strong> <em>Add later</em></li>
+      </ul>
+    </section>
+
+    <!-- Sunshine Seasons -->
+    <section class="card section stack">
+      <div class="stack-sm">
+        <h3>Sunshine Seasons</h3>
+        <p class="small">Casual, bright food court in The Land—fresh choices and plenty of seating.</p>
+      </div>
+
+      <div class="media-split">
+        <div class="media-well carousel" data-carousel tabindex="0" aria-label="Sunshine Seasons photo gallery">
+          <div class="slide active">Add image — e.g. <code>assets/epcot/sunshine-1.jpg</code></div>
+          <button class="nav-btn prev" type="button" data-action="prev" aria-label="Previous photo"><span>‹</span></button>
+          <button class="nav-btn next" type="button" data-action="next" aria-label="Next photo"><span>›</span></button>
+        </div>
+
+        <div class="media-well vid-16x9">
+          <div class="video-placeholder">Optional: add a YouTube dining review link</div>
+        </div>
+      </div>
+
+      <ul class="facts">
+        <li><strong>Type:</strong> Quick Service</li>
+        <li><strong>Duration:</strong> ~30–45 minutes</li>
         <li><strong>Special Notes:</strong> <em>Add later</em></li>
       </ul>
     </section>
